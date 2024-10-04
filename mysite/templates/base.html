@@ -1,0 +1,60 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}My Platform{% endblock %}</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>  
+<body>
+
+    <!-- Navbar -->
+    <nav class="bg-gray-800 p-4 flex justify-between items-center">
+        <!-- Left Side (Links) -->
+        <ul class="flex space-x-4">
+            <li><a href="{% url 'article_list' %}" class="text-white">Home</a></li>
+        </ul>
+
+        <!-- Right Side (Account Links) -->
+        <ul class="flex space-x-4 items-center">
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'profile' %}" class="text-white">{{ user.username }}</a></li>
+                
+                <!-- Logout Form -->
+                <form method="POST" action="{% url 'logout' %}" class="inline">
+                    {% csrf_token %}
+                    <button type="submit" class="text-white">Logout</button>
+                </form>
+            {% else %}
+                <li><a href="{% url 'login' %}" class="text-white">Login</a></li>
+                <li><a href="{% url 'signup' %}" class="text-white">Signup</a></li> <!-- Signup link -->
+            {% endif %}
+        </ul>
+    </nav>
+
+    <!-- Flash messages -->
+    {% if messages %}
+    <div class="container mx-auto">
+        <ul class="mt-4 space-y-2">
+            {% for message in messages %}
+                <li class="p-4 rounded {% if message.tags == 'success' %}bg-green-100 text-green-700{% elif message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-blue-100 text-blue-700{% endif %}">
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <!-- Page content -->
+    <div class="container mx-auto py-8">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>
