@@ -2,20 +2,46 @@
 
 {% block content %}
 <div class="container mx-auto py-12">
-    <div class="bg-white shadow-md rounded-lg p-8">
-        <h1 class="text-2xl font-semibold mb-4">{{ request.user.username }}'s Profile</h1>
+    <!-- Profile Header -->
+    <div class="bg-white shadow-md rounded-lg p-8 text-center">
+        <h1 class="text-3xl font-bold mb-4">{{ request.user.username }}'s Profile</h1>
         <p class="text-gray-600 mb-6">Email: {{ request.user.email }}</p>
+    </div>
 
-        <h2 class="text-xl font-semibold mb-4">Your Articles</h2>
-        <ul class="list-disc pl-6">
+    <!-- User's Articles Section -->
+    <div class="mt-8">
+        <h2 class="text-2xl font-semibold mb-4 text-center">Your Articles</h2>
+
+        {% if request.user.article_set.all %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {% for article in request.user.article_set.all %}
-                <li>
-                    <a href="{% url 'article_detail' article.id %}" class="text-blue-500 hover:underline">{{ article.title }}</a>
-                </li>
+                <div class="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition duration-300">
+                    <h3 class="text-xl font-semibold mb-2">
+                        <a href="{% url 'article_detail' article.id %}" class="text-blue-500 hover:underline">
+                            {{ article.title }}
+                        </a>
+                    </h3>
+                    <p class="text-gray-500 mb-4">Published on {{ article.created_at }}</p>
+                    <p class="text-gray-700">{{ article.content|truncatewords:20 }}</p>
+
+                    <!-- Edit/Delete Links -->
+                    <div class="mt-4 flex justify-between">
+                        <a href="{% url 'edit_article' article.id %}" class="text-green-500 hover:underline">Edit</a>
+                        <a href="{% url 'delete_article' article.id %}" class="text-red-500 hover:underline">Delete</a>
+                    </div>
+                </div>
             {% empty %}
-                <li>No articles yet.</li>
+                <p class="text-gray-600 text-center">You haven't written any articles yet.</p>
             {% endfor %}
-        </ul>
+        </div>
+        {% else %}
+        <div class="text-center mt-6">
+            <p class="text-gray-600">You haven't written any articles yet. Start writing now!</p>
+            <a href="{% url 'add_article' %}" class="inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
+                Add New Article
+            </a>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
