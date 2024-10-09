@@ -2,19 +2,30 @@
 
 {% block content %}
 <div class="container mx-auto py-12">
-    <h1 class="text-4xl font-bold mb-8 text-center">Welcome to the Article Platform</h1>
-    
+
+    <!-- Search Form -->
+    <form method="GET" action="{% url 'article_list' %}" class="mb-8 max-w-lg mx-auto">
+        <input type="text" name="q" placeholder="Search articles..." class="w-full p-2 border rounded" value="{{ request.GET.q }}">
+        <button type="submit" class="mt-2 w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">Search</button>
+    </form>
+
+    {% if request.GET.q %}
+    <h2 class="text-xl font-semibold mb-4 text-center">Results for "{{ request.GET.q }}"</h2>
+    {% endif %}
+
+
+    <!-- Articles Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {% for article in page_obj %}
             <div class="bg-white shadow-lg rounded-lg p-6 transition transform hover:scale-105">
-                <h2 class="text-xl font-semibold mb-4">
+                <h2 class="text-xl font-semibold mb-2">
                     <a href="{% url 'article_detail' article.id %}" class="text-blue-500 hover:underline">{{ article.title }}</a>
                 </h2>
-                <p class="text-gray-500 mb-2">Published on {{ article.created_at }}</p>
+                <p class="text-gray-500 mb-4">Published on {{ article.created_at }}</p>
                 <p class="text-gray-700">{{ article.content|truncatewords:20 }}</p>
             </div>
         {% empty %}
-            <p>No articles available.</p>
+            <p>No articles found.</p>
         {% endfor %}
     </div>
 

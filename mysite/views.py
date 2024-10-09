@@ -14,16 +14,15 @@ from .forms import SignUpForm
 # View for listing articles
 def article_list(request):
     query = request.GET.get('q')
-    articles_list = Article.objects.all()
-
     if query:
-        articles_list = articles_list.filter(
-            Q(title__icontains=query) | Q(content__icontains=query)
-        )
+        articles = Article.objects.filter(title__icontains=query) | Article.objects.filter(content__icontains=query)
+    else:
+        articles = Article.objects.all()
 
-    paginator = Paginator(articles_list, 5)
+    paginator = Paginator(articles, 6)  # Show # articles per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+
     return render(request, 'article_list.html', {'page_obj': page_obj, 'query': query})
 
 # View for article detail
