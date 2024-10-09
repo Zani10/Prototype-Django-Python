@@ -23,6 +23,7 @@
         <!-- Right Side (Account Links) -->
         <ul class="flex space-x-4 items-center">
             {% if user.is_authenticated %}
+                <li><a href="{% url 'add_article' %}" class="text-white">Add Article</a></li>
                 <li><a href="{% url 'profile' %}" class="text-white">{{ user.username }}</a></li>
                 
                 <!-- Logout Form -->
