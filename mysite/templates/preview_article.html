@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mx-auto py-12 max-w-3xl">
+    <div class="bg-white shadow-md rounded-lg p-8">
+        <h1 class="text-3xl font-bold mb-4">{{ article.title }} <span class="text-sm text-gray-500">(Preview of Version {{ version_number }})</span></h1>
+        <p class="text-gray-500 mb-6">By {{ article.history_user|default:"Unknown User" }} on {{ article.history_date }}</p>
+
+        <!-- Article Content -->
+        <div class="prose max-w-none mb-8">
+            {{ article.content }}
+        </div>
+
+        <!-- Button to Go Back to History -->
+        <div class="mt-6">
+            <a href="{% url 'article_history' article.id %}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">Back to History</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

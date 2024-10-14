@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% block content %}
 <div class="container mx-auto py-12 max-w-3xl">
     <div class="bg-white shadow-md rounded-lg p-8">
@@ -10,13 +11,18 @@
             {{ article.content }}
         </div>
 
-        <!-- Edit and Delete Options (only for the author) -->
-        {% if user == article.author %}
+        <!-- Edit, Delete, and History Options (only for the author) -->
+        {% if user.is_authenticated and user == article.author %}
         <div class="mt-6 flex space-x-4">
             <a href="{% url 'edit_article' article.id %}" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition">Edit</a>
             <a href="{% url 'delete_article' article.id %}" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition">Delete</a>
+            <a href="{% url 'article_history' article.id %}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-yellow-600 transition">View History</a>
         </div>
+        {% else %}
+            <p>You are not the author of this article.</p>
         {% endif %}
+        
+
 
         <!-- Comments Section -->
         <div class="mt-12">

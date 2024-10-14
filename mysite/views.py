@@ -31,6 +31,7 @@ def article_list(request):
 def article_detail(request, article_id):
     article = get_object_or_404(Article, pk=article_id)
     comments = article.comments.all()
+
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -41,7 +42,9 @@ def article_detail(request, article_id):
             return redirect('article_detail', article_id=article.id)
     else:
         form = CommentForm()
+
     return render(request, 'article_detail.html', {'article': article, 'comments': comments, 'form': form})
+
 
 @login_required
 def profile(request):
@@ -97,6 +100,48 @@ def delete_article(request, article_id):
         messages.success(request, 'Article deleted successfully!')
         return redirect('article_list')
     return render(request, 'delete_article.html', {'article': article})
+
+# View for article history
+@login_required
+def article_history(request, article_id):
+    article = get_object_or_404(Article, pk=article_id)
+    if request.user != article.author:
+        return redirect('article_list')
+
+    history = article.history.all() 
+    return render(request, 'article_history.html', {'article': article, 'history': history})
+
+# Restore a previous version of the article
+@login_required
+def restore_article(request, article_id, history_id):
+    article = get_object_or_404(Article, pk=article_id)
+    historical_article = article.history.filter(history_id=history_id).first()
+
+    if not historical_article:
+        messages.error(request, 'The requested version does not exist.')
+        return redirect('article_history', article_id=article.id)
+
+    article.title = historical_article.title
+    article.content = historical_article.content
+    article.save()
+
+    messages.success(request, f'Restored to version from {historical_article.history_date}.')
+    return redirect('article_detail', article_id=article.id)
+
+
+@login_required
+def preview_article(request, article_id, history_id):
+    article = get_object_or_404(Article, pk=article_id)
+    historical_article = article.history.filter(history_id=history_id).first()
+
+    if not historical_article:
+        messages.error(request, 'The requested version does not exist.')
+        return redirect('article_history', article_id=article.id)
+
+    return render(request, 'preview_article.html', {
+        'article': historical_article,
+    })
+
 
 @login_required
 def profile(request):

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'mysite',
     'crispy_forms',
     'crispy_bootstrap4',
+    'simple_history',
 ]
 
 # TinyMCE setup to use the Tiny Cloud CDN
@@ -85,6 +86,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'

@@ -15,6 +15,7 @@ urlpatterns = [
     # Home and Article routes
     path('', views.article_list, name='article_list'),
     path('article/<int:article_id>/', views.article_detail, name='article_detail'),
+    
     path('fetch-images/', views.fetch_images, name='fetch_images'),
     
     # Profile route
@@ -24,4 +25,11 @@ urlpatterns = [
     path('add-article/', views.add_article, name='add_article'),
     path('article/<int:article_id>/edit/', views.edit_article, name='edit_article'),
     path('article/<int:article_id>/delete/', views.delete_article, name='delete_article'),
+
+    # Article history
+    path('article/<int:article_id>/history/', views.article_history, name='article_history'),
+    path('article/<int:article_id>/restore/<int:history_id>/', views.restore_article, name='restore_article'),
+
+    # preview article
+    path('article/<int:article_id>/preview/<int:history_id>/', views.preview_article, name='preview_article'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
