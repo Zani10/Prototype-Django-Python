@@ -7,6 +7,7 @@ This is a Django-based web platform that allows users to create, edit, and manag
 - User authentication (login, logout, sign up)
 - Add, edit, and delete articles
 - Article detail pages with comments
+- View and restore article version history
 - Clean and responsive design using Tailwind CSS
 - User profile page displaying their articles
 - Pagination for easy navigation through articles
@@ -63,29 +64,44 @@ Follow these steps to set up the project on your local machine.
    ```bash
    python manage.py runserver
 2. **Open your web browser and go to: http://127.0.0.1:8000/**
+3. **Create own account or log in with username zani, password zani for testing**
 
 ## Features Overview
 - Home Page: Displays a list of articles with pagination.
 - Article Detail Page: Shows article content and allows users to leave comments.
 - Add/Edit/Delete Article: Authenticated users can manage their own articles.
+- Article History: Users can view previous versions of their articles and restore specific versions.
 - User Profile Page: Shows the logged-in user's articles.
 - Admin Panel: Available at http://127.0.0.1:8000/admin/ for managing the site.
 
 ## Folder Structure
   ```bash
+|-- .venv/
+|-- media/
 |-- mysite/
+|   |-- __pycache__/
+|   |-- migrations/
+|   |-- static/
+|   |-- templates/
+|       |-- registration/
+|       |-- add_article.html
+|       |-- article_detail.html
+|       |-- article_history.html
+|       |-- article_list.html
+|       |-- base.html
+|       |-- delete_article.html
+|       |-- edit_article.html
+|       |-- preview_article.html
+|       |-- profile.html
+|   |-- admin.py
+|   |-- asgi.py
+|   |-- forms.py
+|   |-- models.py
 |   |-- settings.py
 |   |-- urls.py
 |   |-- views.py
-|-- templates/
-|   |-- base.html
-|   |-- article_list.html
-|   |-- article_detail.html
-|   |-- add_article.html
-|   |-- edit_article.html
-|-- static/
-|   |-- css/
-|       |-- styles.css
+|   |-- wsgi.py
 |-- manage.py
 |-- requirements.txt
 |-- README.md
+
