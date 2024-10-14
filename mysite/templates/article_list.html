@@ -3,26 +3,23 @@
 {% block content %}
 <div class="container mx-auto py-12">
 
-     <!-- Search Form -->
-     <form method="GET" action="{% url 'article_list' %}" class="mb-8 max-w-lg mx-auto flex items-center bg-white shadow-lg rounded-full overflow-hidden">
+    <!-- Search Form -->
+    <form method="GET" action="{% url 'article_list' %}" class="mb-8 max-w-lg mx-auto flex items-center bg-white shadow-lg rounded-full overflow-hidden border border-gray-300">
         <input 
             type="text" 
             name="q" 
             id="search-input"
             placeholder="Search articles..." 
-            class="w-full p-4 text-gray-700 focus:outline-none" 
+            class="w-full p-4 text-gray-700 focus:outline-none rounded-l-full" 
             value="{{ request.GET.q }}">
-        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full transition duration-300 focus:outline-none">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"></path>
-            </svg>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-5 rounded-r-full transition duration-300 focus:outline-none">
+            Search
         </button>
     </form>
 
     {% if request.GET.q %}
     <h2 class="text-xl font-semibold mb-4 text-center">Results for "{{ request.GET.q }}"</h2>
     {% endif %}
-
 
     <!-- Articles Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

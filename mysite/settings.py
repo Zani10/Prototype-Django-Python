@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 from django.contrib.messages import constants as messages
 
+UNSPLASH_ACCESS_KEY = 'lo-WI7J8ybaAkSIY_tMp2C-cQtwsf2vgZn58GFio4Dg'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -49,6 +50,21 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap4',
 ]
+
+# TinyMCE setup to use the Tiny Cloud CDN
+TINYMCE_JS_URL = 'https://cdn.tiny.cloud/1/bv07at2xk3acivik0ikjuo80ravck128qr1estqgi6eyvmu0/tinymce/7/tinymce.min.js'
+TINYMCE_COMPRESSOR = False
+
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 400,
+    'width': 800,
+    'menubar': 'file edit view insert format tools table help',
+    'plugins': 'preview code link image media table paste lists',
+    'toolbar': 'undo redo | styleselect | bold italic | alignleft aligncenter alignright | link image media',
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 10,
+}
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -137,6 +153,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
 STATIC_URL = 'static/'
 
 
@@ -144,3 +162,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Media files (user-uploaded content)
+MEDIA_URL = '/media/'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+MEDIA_ROOT = BASE_DIR / 'media'
+

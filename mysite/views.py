@@ -9,6 +9,8 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from .forms import SignUpForm
+from django.conf import settings
+from django.http import JsonResponse
 
 
 # View for listing articles
@@ -49,16 +51,22 @@ def profile(request):
 @login_required
 def add_article(request):
     if request.method == 'POST':
-        form = ArticleForm(request.POST)
+        form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
             article = form.save(commit=False)
             article.author = request.user
+            selected_image_url = request.POST.get('selected_image')
+            if selected_image_url:
+                article.image_url = selected_image_url 
+            else:
+                article.custom_image = request.FILES.get('custom_image') 
             article.save()
-            messages.success(request, 'Article created successfully!')
-            return redirect('article_list')  # Redirect after saving
+            messages.success(request, 'Your article has been created successfully!')
+            return redirect('article_list')
     else:
         form = ArticleForm()
     return render(request, 'add_article.html', {'form': form})
+
 
 # EDIT 
 @login_required
@@ -104,3 +112,12 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+
+def fetch_images(request):
+    query = request.GET.get('query', '')
+    url = f"https://api.unsplash.com/search/photos?query={query}&client_id={settings.UNSPLASH_ACCESS_KEY}&per_page=10"
+    response = requests.get(url)
+    data = response.json()
+    images = [{'url': image['urls']['small'], 'alt_description': image['alt_description']} for image in data['results']]
+    return JsonResponse({'images': images})
