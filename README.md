@@ -75,33 +75,58 @@ Follow these steps to set up the project on your local machine.
 - Admin Panel: Available at http://127.0.0.1:8000/admin/ for managing the site.
 
 ## Folder Structure
-  ```bash
-|-- .venv/
-|-- media/
-|-- mysite/
-|   |-- __pycache__/
-|   |-- migrations/
-|   |-- static/
-|   |-- templates/
-|       |-- registration/
-|       |-- add_article.html
-|       |-- article_detail.html
-|       |-- article_history.html
-|       |-- article_list.html
-|       |-- base.html
-|       |-- delete_article.html
-|       |-- edit_article.html
-|       |-- preview_article.html
-|       |-- profile.html
-|   |-- admin.py
-|   |-- asgi.py
-|   |-- forms.py
-|   |-- models.py
-|   |-- settings.py
-|   |-- urls.py
-|   |-- views.py
-|   |-- wsgi.py
-|-- manage.py
-|-- requirements.txt
-|-- README.md
+      |-- .venv/
+      |-- media/
+      |-- mysite/
+      |   |-- __pycache__/
+      |   |-- migrations/
+      |   |-- static/
+      |   |-- templates/
+      |       |-- registration/
+      |       |-- add_article.html
+      |       |-- article_detail.html
+      |       |-- article_history.html
+      |       |-- article_list.html
+      |       |-- base.html
+      |       |-- delete_article.html
+      |       |-- edit_article.html
+      |       |-- preview_article.html
+      |       |-- profile.html
+      |   |-- admin.py
+      |   |-- asgi.py
+      |   |-- forms.py
+      |   |-- models.py
+      |   |-- settings.py
+      |   |-- urls.py
+      |   |-- views.py
+      |   |-- wsgi.py
+      |-- manage.py
+      |-- requirements.txt
+      |-- README.md
 
+
+
+## SOURCES
+Frontend
+https://docs.djangoproject.com/en/5.1/topics/forms/
+https://realpython.com/django-forms/
+https://tailwindcss.com/docs
+https://www.youtube.com/watch?v=dFgzHOX84xQ
+https://www.tailwindtoolbox.com/
+Packages
+https://django-simple-history.readthedocs.io/
+https://django-reversion.readthedocs.io/en/stable/
+https://medium.com/@abhishekchauhan_7861/adding-version-control-to-django-models-using-django-reversion-3cf6f84631d
+https://docs.djangoproject.com/en/stable/
+https://djangopackages.org/
+Backend
+https://www.w3schools.com/django/django_models.php
+https://www.w3schools.com/django/django_urls.php
+https://www.w3schools.com/django/django_create_virtual_environment.php
+Admin
+https://www.w3schools.com/django/django_admin.php
+https://www.w3schools.com/django/django_admin_create_user.php
+https://www.w3schools.com/django/django_add_static_files.php
+YT
+https://youtu.be/rHux0gMZ3Eg
+https://youtu.be/qcJZN1pvG6A?list=PL0Zuz27SZ-6NamGNr7dEqzNFEcZ_FAUVX
