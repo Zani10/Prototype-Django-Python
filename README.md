@@ -130,3 +130,5 @@ https://www.w3schools.com/django/django_add_static_files.php
 YT
 https://youtu.be/rHux0gMZ3Eg
 https://youtu.be/qcJZN1pvG6A?list=PL0Zuz27SZ-6NamGNr7dEqzNFEcZ_FAUVX
+Chatgpt
+https://chatgpt.com/share/670dc322-4a70-800f-b909-2ef83bcc34ce
